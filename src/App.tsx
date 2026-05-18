@@ -1,51 +1,32 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { useEffect }                         from 'react'
+import { initDb, getAllIncidents, getEntriesForIncident } from './db'
+import { useStore }                          from './store'
+import { Sidebar }                           from './components/Sidebar'
+import { MainArea }                          from './components/MainArea'
+import { Toast }                             from './components/Toast'
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+export default function App() {
+  const { setIncidents, selectedIncidentId, setEntries, showToast } = useStore()
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  useEffect(() => {
+    initDb()
+      .then(() => getAllIncidents())
+      .then(setIncidents)
+      .catch(() => showToast('Failed to initialize database', 'error'))
+  }, [])
+
+  useEffect(() => {
+    if (!selectedIncidentId) return
+    getEntriesForIncident(selectedIncidentId)
+      .then(setEntries)
+      .catch(() => showToast('Failed to load entries', 'error'))
+  }, [selectedIncidentId])
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
-  );
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar />
+      <MainArea />
+      <Toast />
+    </div>
+  )
 }
-
-export default App;
