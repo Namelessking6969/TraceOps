@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri-app",
+  "productName": "TraceOps",
   "version": "0.1.0",
-  "identifier": "com.jake.tauri-app",
+  "identifier": "com.jake.traceops",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,9 +12,9 @@
   "app": {
     "windows": [
       {
-        "title": "tauri-app",
-        "width": 800,
-        "height": 600
+        "title": "TraceOps",
+        "width": 1200,
+        "height": 750
       }
     ],
     "security": {
