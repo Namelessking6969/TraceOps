@@ -29,9 +29,7 @@ export function useTheme() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme
     getStore()
-      .then((store) => store.set(STORE_KEY, theme))
-      .then(() => getStore())
-      .then((store) => store.save())
+      .then((store) => store.set(STORE_KEY, theme).then(() => store.save()))
       .catch(() => {})
   }, [theme])
 }
