@@ -5,13 +5,17 @@ import { useStore }    from '../store'
 import { THEMES }      from '../themes'
 
 const GITHUB_URL = 'https://github.com/Namelessking6969/TraceOps'
+const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1506729527525638235/4HOsOdLS9wb8IGBrVfUxj3lBTi5HeRqn9w8Iy0a7DIUnvdiCqvBNRP9XqQIXSHMmZXWf'
 
-type Tab = 'appearance' | 'about'
+type Tab = 'appearance' | 'about' | 'feedback'
 
 export function SettingsModal({ onClose }: { onClose: () => void }) {
   const { theme, setTheme } = useStore()
   const [activeTab, setActiveTab] = useState<Tab>('appearance')
   const [version, setVersion] = useState<string>('...')
+  const [name, setName]             = useState('')
+  const [message, setMessage]       = useState('')
+  const [sendStatus, setSendStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
   useEffect(() => {
     getVersion().then(setVersion).catch(() => setVersion('—'))
@@ -23,6 +27,34 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
 
   async function handleGitHub() {
     await open(GITHUB_URL).catch(console.error)
+  }
+
+  async function sendFeedback() {
+    if (!message.trim() || sendStatus === 'sending') return
+    setSendStatus('sending')
+    try {
+      const res = await fetch(DISCORD_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          embeds: [{
+            title: 'TraceOps Feedback',
+            color: 5814783,
+            fields: [
+              { name: 'From',    value: name.trim() || 'Anonymous', inline: true },
+              { name: 'Version', value: `v${version}`,              inline: true },
+              { name: 'Message', value: message.trim() },
+            ],
+          }],
+        }),
+      })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      setSendStatus('success')
+      setName('')
+      setMessage('')
+    } catch {
+      setSendStatus('error')
+    }
   }
 
   return (
@@ -44,10 +76,10 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
 
         {/* Tabs */}
         <div className="flex gap-1 px-5 pt-4 border-b border-[var(--border)]">
-          {(['appearance', 'about'] as Tab[]).map((tab) => (
+          {(['appearance', 'about', 'feedback'] as Tab[]).map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => { setActiveTab(tab); if (tab !== 'feedback') setSendStatus('idle') }}
               className={`px-3 py-1.5 text-sm rounded-t capitalize transition-colors ${
                 activeTab === tab
                   ? 'text-[var(--text-primary)] border-b-2 border-[var(--accent)] -mb-px'
@@ -119,6 +151,42 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
                 <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
               </svg>
               View on GitHub
+            </button>
+          </div>
+        )}
+
+        {/* Feedback Tab */}
+        {activeTab === 'feedback' && (
+          <div className="p-5 flex flex-col gap-3">
+            <p className="text-xs text-[var(--text-muted)]">
+              Found a bug or have a suggestion? Let us know.
+            </p>
+            <input
+              type="text"
+              placeholder="Your name (optional)"
+              value={name}
+              onChange={(e) => { setName(e.target.value); setSendStatus('idle') }}
+              className="w-full px-3 py-2 rounded-lg bg-[var(--bg-input)] border border-[var(--border)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent)]"
+            />
+            <textarea
+              placeholder="Describe the bug or feedback..."
+              value={message}
+              onChange={(e) => { setMessage(e.target.value); setSendStatus('idle') }}
+              rows={4}
+              className="w-full px-3 py-2 rounded-lg bg-[var(--bg-input)] border border-[var(--border)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent)] resize-none"
+            />
+            {sendStatus === 'success' && (
+              <p className="text-xs text-green-500">Sent! Thanks for your feedback.</p>
+            )}
+            {sendStatus === 'error' && (
+              <p className="text-xs text-red-500">Failed to send — please try again.</p>
+            )}
+            <button
+              onClick={sendFeedback}
+              disabled={!message.trim() || sendStatus === 'sending'}
+              className="w-full py-2 rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {sendStatus === 'sending' ? 'Sending…' : 'Send Feedback'}
             </button>
           </div>
         )}
