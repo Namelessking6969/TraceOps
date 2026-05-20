@@ -2,9 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── dark-slate (default) ──────────────────────────────────── */
+[data-theme="dark-slate"] {
+  --bg-base:        #0f172a;
+  --bg-panel:       #020617;
+  --bg-surface:     #0f172a;
+  --bg-input:       #1e293b;
+  --bg-hover:       #334155;
+  --border:         #1e293b;
+  --text-primary:   #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted:     #94a3b8;
+  --text-faint:     #475569;
+  --accent:         #2563eb;
+  --accent-hover:   #3b82f6;
+  --accent-subtle:  #172554;
+  --accent-border:  #1d4ed8;
+}
+
+/* ── dracula ───────────────────────────────────────────────── */
+[data-theme="dracula"] {
+  --bg-base:        #282a36;
+  --bg-panel:       #21222c;
+  --bg-surface:     #2d2f3f;
+  --bg-input:       #44475a;
+  --bg-hover:       #4e5066;
+  --border:         #44475a;
+  --text-primary:   #f8f8f2;
+  --text-secondary: #cac9d8;
+  --text-muted:     #6272a4;
+  --text-faint:     #4c5680;
+  --accent:         #bd93f9;
+  --accent-hover:   #d0b0ff;
+  --accent-subtle:  #3a2d5a;
+  --accent-border:  #7c5cbf;
+}
+
+/* ── light-default ─────────────────────────────────────────── */
+[data-theme="light-default"] {
+  --bg-base:        #f8fafc;
+  --bg-panel:       #f1f5f9;
+  --bg-surface:     #ffffff;
+  --bg-input:       #f1f5f9;
+  --bg-hover:       #e2e8f0;
+  --border:         #cbd5e1;
+  --text-primary:   #0f172a;
+  --text-secondary: #334155;
+  --text-muted:     #64748b;
+  --text-faint:     #94a3b8;
+  --accent:         #2563eb;
+  --accent-hover:   #1d4ed8;
+  --accent-subtle:  #eff6ff;
+  --accent-border:  #93c5fd;
+}
+
+/* ── solarized-light ───────────────────────────────────────── */
+[data-theme="solarized-light"] {
+  --bg-base:        #fdf6e3;
+  --bg-panel:       #eee8d5;
+  --bg-surface:     #fdf6e3;
+  --bg-input:       #eee8d5;
+  --bg-hover:       #ddd5bb;
+  --border:         #d0cbb5;
+  --text-primary:   #073642;
+  --text-secondary: #586e75;
+  --text-muted:     #657b83;
+  --text-faint:     #93a1a1;
+  --accent:         #268bd2;
+  --accent-hover:   #1f72af;
+  --accent-subtle:  #d6eaf8;
+  --accent-border:  #7bbbd9;
+}
+
 body {
-  background-color: #0f172a;
-  color: #e2e8f0;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
   margin: 0;
   padding: 0;
   height: 100vh;
