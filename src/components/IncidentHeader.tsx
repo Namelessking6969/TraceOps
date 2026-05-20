@@ -5,7 +5,9 @@ import { useStore }        from '../store'
 import { closeIncident }   from '../db'
 import { generateMarkdown } from '../export'
 import { formatElapsed }   from '../utils/time'
-import { CloseIncidentModal } from './CloseIncidentModal'
+import { CloseIncidentModal }  from './CloseIncidentModal'
+import { DeleteIncidentModal } from './DeleteIncidentModal'
+import { useDeleteIncident }   from '../hooks/useDeleteIncident'
 
 const SEVERITY_BADGE: Record<string, string> = {
   low:      'bg-slate-700 text-slate-300',
@@ -16,11 +18,13 @@ const SEVERITY_BADGE: Record<string, string> = {
 
 export function IncidentHeader() {
   const { selectedIncidentId, incidents, entries, updateIncident, showToast } = useStore()
+  const { handleDelete } = useDeleteIncident()
   const incident = incidents.find((i) => i.id === selectedIncidentId)
 
-  const [elapsed, setElapsed]         = useState(0)
-  const [showClose, setShowClose]     = useState(false)
-  const [exporting, setExporting]     = useState(false)
+  const [elapsed, setElapsed]       = useState(0)
+  const [showClose, setShowClose]   = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
+  const [exporting, setExporting]   = useState(false)
 
   useEffect(() => {
     if (!incident || incident.status !== 'active') return
@@ -61,6 +65,12 @@ export function IncidentHeader() {
     } catch {
       showToast('Failed to close incident', 'error')
     }
+  }
+
+  function onConfirmDelete() {
+    if (!incident) return
+    setShowDelete(false)
+    handleDelete(incident)
   }
 
   return (
@@ -104,10 +114,25 @@ export function IncidentHeader() {
               Close Incident
             </button>
           )}
+          {incident.status === 'closed' && (
+            <button
+              onClick={() => setShowDelete(true)}
+              className="bg-red-900 hover:bg-red-800 border border-red-800 text-red-300 text-xs px-3 py-1.5 rounded transition-colors"
+            >
+              Delete
+            </button>
+          )}
         </div>
       </div>
       {showClose && (
         <CloseIncidentModal onClose={() => setShowClose(false)} onConfirm={handleClose} />
+      )}
+      {showDelete && (
+        <DeleteIncidentModal
+          incidentTitle={incident.title}
+          onClose={() => setShowDelete(false)}
+          onConfirm={onConfirmDelete}
+        />
       )}
     </>
   )
