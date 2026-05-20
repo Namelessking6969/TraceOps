@@ -4,9 +4,11 @@ import { useStore }                          from './store'
 import { Sidebar }                           from './components/Sidebar'
 import { MainArea }                          from './components/MainArea'
 import { Toast }                             from './components/Toast'
+import { useTheme }                          from './hooks/useTheme'
 
 export default function App() {
   const { setIncidents, selectedIncidentId, setEntries, showToast } = useStore()
+  useTheme()
 
   useEffect(() => {
     initDb()
