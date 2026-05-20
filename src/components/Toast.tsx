@@ -6,9 +6,9 @@ export function Toast() {
 
   useEffect(() => {
     if (!toast) return
-    const t = setTimeout(clearToast, 4000)
+    const t = setTimeout(clearToast, toast.duration ?? 4000)
     return () => clearTimeout(t)
-  }, [toast, clearToast])
+  }, [toast?.id, clearToast])
 
   if (!toast) return null
 
@@ -18,6 +18,14 @@ export function Toast() {
   return (
     <div className={`fixed bottom-4 right-4 z-50 flex items-center gap-3 px-4 py-3 rounded-lg border ${bg} shadow-xl`}>
       <span className={`text-sm ${text}`}>{toast.message}</span>
+      {toast.onUndo && (
+        <button
+          onClick={() => { toast.onUndo!(); clearToast() }}
+          className="text-xs font-semibold text-slate-200 hover:text-white underline"
+        >
+          Undo
+        </button>
+      )}
       <button onClick={clearToast} className="text-slate-400 hover:text-slate-200 text-lg leading-none">×</button>
     </div>
   )
