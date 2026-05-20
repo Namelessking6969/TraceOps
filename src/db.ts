@@ -60,6 +60,11 @@ export async function closeIncident(id: string, closedAt: number, notes: string 
   )
 }
 
+export async function deleteIncident(id: string): Promise<void> {
+  await db.execute('DELETE FROM entries WHERE incident_id = ?', [id])
+  await db.execute('DELETE FROM incidents WHERE id = ?', [id])
+}
+
 export async function getEntriesForIncident(incidentId: string): Promise<Entry[]> {
   return db.select<Entry[]>(
     'SELECT * FROM entries WHERE incident_id = ? ORDER BY created_at ASC',
