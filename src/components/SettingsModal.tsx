@@ -165,7 +165,7 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
               type="text"
               placeholder="Your name (optional)"
               value={name}
-              onChange={(e) => { setName(e.target.value); setSendStatus('idle') }}
+              onChange={(e) => setName(e.target.value)}
               className="w-full px-3 py-2 rounded-lg bg-[var(--bg-input)] border border-[var(--border)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent)]"
             />
             <textarea
