@@ -37,6 +37,18 @@ export function IncidentItem({ incident }: { incident: Incident }) {
     }
   }, [contextMenu])
 
+  useEffect(() => {
+    if (!contextMenu || !contextRef.current) return
+    const rect = contextRef.current.getBoundingClientRect()
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    const clampedX = Math.min(contextMenu.x, vw - rect.width - 8)
+    const clampedY = Math.min(contextMenu.y, vh - rect.height - 8)
+    if (clampedX !== contextMenu.x || clampedY !== contextMenu.y) {
+      setContextMenu({ x: clampedX, y: clampedY })
+    }
+  }, [contextMenu])
+
   function handleContextMenu(e: React.MouseEvent) {
     if (!isClosed) return
     e.preventDefault()

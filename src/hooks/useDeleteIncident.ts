@@ -8,6 +8,7 @@ export function useDeleteIncident() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   function handleDelete(incident: Incident) {
+    if (timerRef.current !== null) return  // already pending deletion
     removeIncident(incident.id)
 
     timerRef.current = setTimeout(async () => {
