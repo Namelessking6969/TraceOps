@@ -56,3 +56,23 @@ describe('removeIncident', () => {
     expect(useStore.getState().selectedIncidentId).toBe('1')
   })
 })
+
+describe('theme', () => {
+  it('defaults to dark-slate', () => {
+    useStore.setState({ incidents: [], selectedIncidentId: null, entries: [], toast: null })
+    expect(useStore.getState().theme).toBe('dark-slate')
+  })
+
+  it('setTheme updates the theme', () => {
+    useStore.getState().setTheme('dracula')
+    expect(useStore.getState().theme).toBe('dracula')
+  })
+
+  it('setTheme accepts all valid theme keys', () => {
+    const keys = ['dark-slate', 'dracula', 'light-default', 'solarized-light'] as const
+    for (const key of keys) {
+      useStore.getState().setTheme(key)
+      expect(useStore.getState().theme).toBe(key)
+    }
+  })
+})

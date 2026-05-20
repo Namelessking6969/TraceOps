@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 import type { Incident, Entry } from './types'
+import type { ThemeKey } from './themes'
+import { DEFAULT_THEME } from './themes'
 
 interface Toast {
   id: string
@@ -14,6 +16,7 @@ interface AppStore {
   selectedIncidentId: string | null
   entries: Entry[]
   toast: Toast | null
+  theme: ThemeKey
 
   setIncidents: (incidents: Incident[]) => void
   addIncident: (incident: Incident) => void
@@ -24,6 +27,7 @@ interface AppStore {
   addEntry: (entry: Entry) => void
   showToast: (message: string, type: 'error' | 'success', onUndo?: () => void) => void
   clearToast: () => void
+  setTheme: (theme: ThemeKey) => void
 }
 
 export const useStore = create<AppStore>((set) => ({
@@ -31,6 +35,7 @@ export const useStore = create<AppStore>((set) => ({
   selectedIncidentId:   null,
   entries:              [],
   toast:                null,
+  theme:                DEFAULT_THEME,
 
   setIncidents: (incidents) => set({ incidents }),
 
@@ -59,4 +64,6 @@ export const useStore = create<AppStore>((set) => ({
     set({ toast: { id: String(Date.now()), message, type, onUndo, duration: onUndo ? 5000 : 4000 } }),
 
   clearToast: () => set({ toast: null }),
+
+  setTheme: (theme) => set({ theme }),
 }))
