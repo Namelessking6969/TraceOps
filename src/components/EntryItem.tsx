@@ -24,21 +24,21 @@ export function EntryItem({ entry }: { entry: Entry }) {
           <span className={`text-xs px-1.5 py-0.5 rounded font-mono ${BADGE[entry.type]}`}>
             {LABEL[entry.type]}
           </span>
-          <span className="text-xs text-slate-500">{formatTimestamp(entry.created_at)}</span>
+          <span className="text-xs text-[var(--text-muted)]">{formatTimestamp(entry.created_at)}</span>
         </div>
 
         {entry.type === 'command' && (
-          <div className="bg-slate-800 rounded px-2 py-1.5 font-mono text-xs text-emerald-300 break-all">
+          <div className="bg-[var(--bg-input)] rounded px-2 py-1.5 font-mono text-xs text-emerald-300 break-all">
             {entry.content}
           </div>
         )}
 
         {entry.type === 'file' && (
-          <div className="bg-slate-800 rounded px-2 py-1.5 flex items-center gap-2">
+          <div className="bg-[var(--bg-input)] rounded px-2 py-1.5 flex items-center gap-2">
             <span>📎</span>
-            <span className="text-sm text-slate-200 truncate">{entry.content}</span>
+            <span className="text-sm text-[var(--text-primary)] truncate">{entry.content}</span>
             {entry.file_size != null && (
-              <span className="text-xs text-slate-500 ml-auto flex-shrink-0">
+              <span className="text-xs text-[var(--text-muted)] ml-auto flex-shrink-0">
                 {Math.round(entry.file_size / 1024)} KB
               </span>
             )}
@@ -46,7 +46,7 @@ export function EntryItem({ entry }: { entry: Entry }) {
         )}
 
         {entry.type === 'note' && (
-          <p className="text-sm text-slate-200">{entry.content}</p>
+          <p className="text-sm text-[var(--text-primary)]">{entry.content}</p>
         )}
       </div>
     </div>

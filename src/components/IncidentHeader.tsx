@@ -75,22 +75,22 @@ export function IncidentHeader() {
 
   return (
     <>
-      <div className="border-b border-slate-800 px-4 py-3 flex items-center justify-between flex-shrink-0">
+      <div className="border-b border-[var(--border)] px-4 py-3 flex items-center justify-between flex-shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-base font-bold text-slate-100">{incident.title}</h1>
+            <h1 className="text-base font-bold text-[var(--text-primary)]">{incident.title}</h1>
             {incident.severity && (
               <span className={`text-xs px-1.5 py-0.5 rounded font-semibold uppercase ${SEVERITY_BADGE[incident.severity]}`}>
                 {incident.severity}
               </span>
             )}
             {incident.status === 'active' && (
-              <span className="bg-slate-800 text-red-400 text-xs px-2 py-0.5 rounded font-mono">
+              <span className="bg-[var(--bg-input)] text-red-400 text-xs px-2 py-0.5 rounded font-mono">
                 🔴 {formatElapsed(elapsed)}
               </span>
             )}
           </div>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-[var(--text-muted)] mt-0.5">
             {new Date(incident.started_at).toLocaleString('en-US')}
             {incident.status === 'closed' && incident.closed_at && (
               <> · Closed {new Date(incident.closed_at).toLocaleString('en-US')}</>
@@ -102,7 +102,7 @@ export function IncidentHeader() {
           <button
             onClick={handleExport}
             disabled={exporting}
-            className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded transition-colors disabled:opacity-50"
+            className="bg-[var(--bg-input)] hover:bg-[var(--bg-hover)] border border-[var(--border)] text-[var(--text-secondary)] text-xs px-3 py-1.5 rounded transition-colors disabled:opacity-50"
           >
             Export
           </button>

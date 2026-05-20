@@ -21,12 +21,12 @@ export function Toast() {
       {toast.onUndo && (
         <button
           onClick={() => { toast.onUndo!(); clearToast() }}
-          className="text-xs font-semibold text-slate-200 hover:text-white underline"
+          className="text-xs font-semibold text-[var(--text-primary)] hover:text-white underline"
         >
           Undo
         </button>
       )}
-      <button onClick={clearToast} className="text-slate-400 hover:text-slate-200 text-lg leading-none">×</button>
+      <button onClick={clearToast} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-lg leading-none">×</button>
     </div>
   )
 }

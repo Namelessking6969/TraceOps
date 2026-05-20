@@ -10,7 +10,7 @@ export function MainArea() {
   if (!selectedIncidentId) {
     return (
       <main className="flex-1 flex items-center justify-center">
-        <div className="text-center text-slate-600">
+        <div className="text-center text-[var(--text-faint)]">
           <p className="text-lg mb-1">No incident selected</p>
           <p className="text-sm">Create a new incident or select one from the sidebar</p>
         </div>

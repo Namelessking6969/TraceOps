@@ -74,17 +74,17 @@ export function IncidentItem({ incident }: { incident: Incident }) {
           onContextMenu={handleContextMenu}
           className={`w-full text-left rounded-lg px-3 py-2.5 mb-1 transition-colors border ${
             isSelected
-              ? 'bg-blue-950 border-blue-700'
-              : 'hover:bg-slate-800 border-transparent'
+              ? 'bg-[var(--accent-subtle)] border-[var(--accent-border)]'
+              : 'hover:bg-[var(--bg-hover)] border-transparent'
           }`}
         >
           <div className="flex items-center gap-2 mb-0.5">
             {isActive && <span className="w-2 h-2 rounded-full bg-red-500 flex-shrink-0 animate-pulse" />}
-            <span className={`text-sm font-medium truncate ${isSelected ? 'text-slate-100' : 'text-slate-300'}`}>
+            <span className={`text-sm font-medium truncate ${isSelected ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
               {incident.title}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
             <span>{isActive ? 'Active' : 'Closed'}</span>
             {incident.severity && (
               <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_DOT[incident.severity]}`} />
@@ -96,7 +96,7 @@ export function IncidentItem({ incident }: { incident: Incident }) {
           <button
             onClick={openConfirm}
             title="Delete incident"
-            className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 text-slate-500 hover:text-red-400 transition-opacity p-1"
+            className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 text-[var(--text-muted)] hover:text-red-400 transition-opacity p-1"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
@@ -109,11 +109,11 @@ export function IncidentItem({ incident }: { incident: Incident }) {
         <div
           ref={contextRef}
           style={{ position: 'fixed', top: contextMenu.y, left: contextMenu.x }}
-          className="z-50 bg-slate-800 border border-slate-700 rounded-lg shadow-xl py-1 min-w-[120px]"
+          className="z-50 bg-[var(--bg-surface)] border border-[var(--border)] rounded-lg shadow-xl py-1 min-w-[120px]"
         >
           <button
             onClick={openConfirm}
-            className="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-slate-700 transition-colors"
+            className="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-[var(--bg-hover)] transition-colors"
           >
             Delete
           </button>

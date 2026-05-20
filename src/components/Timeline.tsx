@@ -6,7 +6,7 @@ export function Timeline() {
 
   if (entries.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center text-slate-600 text-sm">
+      <div className="flex-1 flex items-center justify-center text-[var(--text-faint)] text-sm">
         No entries yet — add a note, command, or file below
       </div>
     )
