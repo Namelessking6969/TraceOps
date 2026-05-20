@@ -35,7 +35,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "RWQdMIzch8SFGOCdVnbGuQqJ5vyapM3o3AdEAwIN65AOZJH3JLm1Tdj4",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDE4ODVDNDg3REM4QzMwMUQKUldRZE1JemNoOFNGR09DZFZuYkd1UXFKNXZ5YXBNM28zQWRFQXdJTjY1QU9aSkgzSkxtMVRkajQK",
       "endpoints": [
         "https://raw.githubusercontent.com/Namelessking6969/TraceOps/updates/latest.json"
       ]
