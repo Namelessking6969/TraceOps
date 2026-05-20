@@ -11,7 +11,7 @@ type Tab = 'appearance' | 'about'
 export function SettingsModal({ onClose }: { onClose: () => void }) {
   const { theme, setTheme } = useStore()
   const [activeTab, setActiveTab] = useState<Tab>('appearance')
-  const [version, setVersion] = useState<string>('')
+  const [version, setVersion] = useState<string>('...')
 
   useEffect(() => {
     getVersion().then(setVersion).catch(() => setVersion('—'))
@@ -22,7 +22,7 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
   }
 
   async function handleGitHub() {
-    await open(GITHUB_URL)
+    await open(GITHUB_URL).catch(console.error)
   }
 
   return (
