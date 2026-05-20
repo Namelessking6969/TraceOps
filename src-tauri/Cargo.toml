@@ -1,6 +1,6 @@
 [package]
 name = "traceops"
-version = "0.1.9"
+version = "0.1.10"
 description = "IT incident timeline logger"
 authors = ["you"]
 edition = "2021"
