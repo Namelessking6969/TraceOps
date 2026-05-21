@@ -39,21 +39,6 @@
       "endpoints": [
         "https://raw.githubusercontent.com/Namelessking6969/TraceOps/updates/latest.json"
       ]
-    },
-    "shell": {
-      "scope": [
-        {
-          "name": "sh",
-          "cmd": "sh",
-          "args": [
-            "-c",
-            {
-              "validator": ".*"
-            }
-          ],
-          "sidecar": false
-        }
-      ]
     }
   }
 }
