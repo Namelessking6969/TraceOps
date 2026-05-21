@@ -18,8 +18,12 @@ export function TerminalPane() {
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    bottomRef.current?.scrollIntoView({ behavior: 'instant' })
   }, [runs])
+
+  useEffect(() => {
+    setRuns([])
+  }, [selectedIncidentId])
 
   function appendLine(line: string) {
     setRuns(prev => {
