@@ -27,6 +27,7 @@ export function TerminalPane() {
 
   function appendLine(line: string) {
     setRuns(prev => {
+      if (prev.length === 0) return prev
       const copy = [...prev]
       const last = { ...copy[copy.length - 1] }
       last.lines = [...last.lines, line]
@@ -37,6 +38,7 @@ export function TerminalPane() {
 
   function markLastDone() {
     setRuns(prev => {
+      if (prev.length === 0) return prev
       const copy = [...prev]
       copy[copy.length - 1] = { ...copy[copy.length - 1], done: true }
       return copy
