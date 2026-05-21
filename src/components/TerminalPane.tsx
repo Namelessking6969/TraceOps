@@ -23,6 +23,8 @@ export function TerminalPane() {
 
   useEffect(() => {
     setRuns([])
+    setRunning(false)
+    setInput('')
   }, [selectedIncidentId])
 
   function appendLine(line: string) {
@@ -48,6 +50,7 @@ export function TerminalPane() {
   async function handleSubmit() {
     const cmd = input.trim()
     if (!cmd || running || !selectedIncidentId) return
+    const capturedIncidentId = selectedIncidentId
 
     setInput('')
     setRunning(true)
@@ -75,7 +78,7 @@ export function TerminalPane() {
 
       markLastDone()
 
-      const entry = await createEntry(selectedIncidentId, {
+      const entry = await createEntry(capturedIncidentId, {
         type: 'command',
         content: formatCommandEntry(cmd, collectedLines),
       })
