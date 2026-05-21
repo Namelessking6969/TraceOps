@@ -1,0 +1,19 @@
+{
+  "version": "0.1.14",
+  "notes": "## What's New\n\n- fix: app startup crash on install",
+  "pub_date": "2026-05-21T13:45:30.906Z",
+  "platforms": {
+    "darwin-aarch64": {
+      "url": "https://github.com/Namelessking6969/TraceOps/releases/download/v0.1.14/TraceOps.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRZE1JemNoOFNGR0J4czZCU2tDSHFmT2l3ZjEzK3dnS1F4UnhBNHZ3R3ZyOHhEcDRITnFEUDdFUjFOdCtyeGJDUHRxUytkTmVrNXdJaTdyb0FSQVcrUmRvVTZsempEamdRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc5MzcwOTE2CWZpbGU6VHJhY2VPcHMuYXBwLnRhci5negpMMDhobndqOFFIc0ZqdkJpWWp2WDlvNmV0dFh6WkZlNUNWZDY3THYxNGFhejQ4Qm5jV3h3Tk9CZ1ZaVnVISUJ2NWNCVTlWdGZQa2dzL3VKbEV3NGpCUT09Cg=="
+    },
+    "windows-x86_64": {
+      "url": "https://github.com/Namelessking6969/TraceOps/releases/download/v0.1.14/TraceOps_0.1.14_x64-setup.exe",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRZE1JemNoOFNGR0QwaW5wZllHMzFXYjdDNW5jYkpnS21zZUIzcVpUK1cyNUFPcW1tZUtZZmI1bzBSbVBOUjcydGdPSW1nMjNIQnRNVzRUU1ZDd2lhVXR2Q1M3M01lOUFBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc5MzcxMDgyCWZpbGU6VHJhY2VPcHNfMC4xLjE0X3g2NC1zZXR1cC5leGUKY3FjWWdxODhLcndqWFVSSHBZU1JFbG42Y0lsUWtYaGVGS0dNYWphY1NWbmxtQmFkcTFMVGp4a3FuOFEwUFhkNTYvM0t4Ly91NS81MlYxbFdPeDA5Qnc9PQo="
+    },
+    "linux-x86_64": {
+      "url": "https://github.com/Namelessking6969/TraceOps/releases/download/v0.1.14/TraceOps_0.1.14_amd64.AppImage",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRZE1JemNoOFNGR1B3SG1uUE9pK3dDTHl3em5OWHIyN0l3Ym9KL1dpK1lhdnBmTjBhNjJvU3p0d3VMckRvRXgxODZCbUFBNjQvTjQzVmVGOTcwOUFxQU5jOGs5eGdNMndjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc5MzcxMDg0CWZpbGU6VHJhY2VPcHNfMC4xLjE0X2FtZDY0LkFwcEltYWdlCnNPdmJjMzlEbnVtVFl4WlZLWUNLbUVGbmppMmJBN1Bkd1FHZDJoNVBDQU5lN21BY0dlb3BEV2M1aWdXTXpEa2dPWU1HS25KeWpEc0ZadkxKYjFJREFBPT0K"
+    }
+  }
+}
