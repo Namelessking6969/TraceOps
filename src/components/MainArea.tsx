@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useStore }       from '../store'
 import { IncidentHeader } from './IncidentHeader'
 import { Timeline }       from './Timeline'
@@ -14,6 +14,19 @@ export function MainArea() {
   const isActive = incident?.status === 'active'
   const showTerminal = terminalOpen && isActive
 
+  // Reset terminal open state when the selected incident changes so the pane
+  // never auto-opens on a freshly selected incident.
+  useEffect(() => {
+    setTerminalOpen(false)
+  }, [selectedIncidentId])
+
+  // Track active drag listeners so they can be torn down if the component
+  // unmounts mid-drag, preventing stale window listeners.
+  const dragCleanupRef = useRef<(() => void) | null>(null)
+  useEffect(() => {
+    return () => { dragCleanupRef.current?.() }
+  }, [])
+
   function handleDragMouseDown(e: React.MouseEvent) {
     e.preventDefault()
     const startY = e.clientY
@@ -27,10 +40,16 @@ export function MainArea() {
     function onMouseUp() {
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
+      dragCleanupRef.current = null
     }
 
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', onMouseUp)
+
+    dragCleanupRef.current = () => {
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
+    }
   }
 
   if (!selectedIncidentId) {
@@ -59,7 +78,7 @@ export function MainArea() {
           />
           <div
             style={{ height: paneHeight }}
-            className="flex-shrink-0 overflow-hidden border-t border-[var(--border)]"
+            className="flex-shrink-0 overflow-hidden"
           >
             <TerminalPane />
           </div>
