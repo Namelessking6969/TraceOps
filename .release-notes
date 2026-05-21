@@ -1,4 +1,3 @@
 ## What's New
 
-- terminal implimentation
-
+- Terminal pane: run shell commands from within the incident and save output to the timeline
