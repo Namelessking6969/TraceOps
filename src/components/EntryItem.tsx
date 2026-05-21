@@ -28,7 +28,7 @@ export function EntryItem({ entry }: { entry: Entry }) {
         </div>
 
         {entry.type === 'command' && (
-          <div className="bg-[var(--bg-input)] rounded px-2 py-1.5 font-mono text-xs text-emerald-300 break-all">
+          <div className="bg-[var(--bg-input)] rounded px-2 py-1.5 font-mono text-xs text-emerald-300 whitespace-pre-wrap break-words">
             {entry.content}
           </div>
         )}
