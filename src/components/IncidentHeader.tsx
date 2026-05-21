@@ -16,7 +16,12 @@ const SEVERITY_BADGE: Record<string, string> = {
   critical: 'bg-red-950 text-red-300',
 }
 
-export function IncidentHeader() {
+interface Props {
+  onToggleTerminal?: () => void
+  terminalOpen?: boolean
+}
+
+export function IncidentHeader({ onToggleTerminal, terminalOpen }: Props) {
   const { selectedIncidentId, incidents, entries, updateIncident, showToast } = useStore()
   const { handleDelete } = useDeleteIncident()
   const incident = incidents.find((i) => i.id === selectedIncidentId)
@@ -99,6 +104,18 @@ export function IncidentHeader() {
           </p>
         </div>
         <div className="flex gap-2">
+          {incident.status === 'active' && onToggleTerminal && (
+            <button
+              onClick={onToggleTerminal}
+              className={`bg-[var(--bg-input)] hover:bg-[var(--bg-hover)] border text-xs px-3 py-1.5 rounded transition-colors font-mono ${
+                terminalOpen
+                  ? 'border-emerald-700 text-emerald-400'
+                  : 'border-[var(--border)] text-[var(--text-secondary)]'
+              }`}
+            >
+              &gt;_
+            </button>
+          )}
           <button
             onClick={handleExport}
             disabled={exporting}
